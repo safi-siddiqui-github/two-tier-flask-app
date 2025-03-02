@@ -21,8 +21,8 @@ services:
       start_period: 60s
 
   app:
-    image: trainwithshubham/two-tier-flask-app:latest
-    # image: ttfa_img
+    # image: trainwithshubham/two-tier-flask-app:latest
+    image: ttfa_img
     container_name: app-con
     ports:
       - "5000:5000"
