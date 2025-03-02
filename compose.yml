@@ -21,7 +21,7 @@ services:
       start_period: 60s
 
   app:
-    image: safisiddiqui/ttfa_img:latest
+    image: safisidsiqui/ttfa_img:latest
     # image: ttfa_img
     container_name: app-con
     ports:
