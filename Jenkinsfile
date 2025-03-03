@@ -5,12 +5,12 @@ pipeline {
 
         stage("install") {
             steps {
-                git url: "https://github.com/safi-siddiqui-github/two-tier-flask-app.git", branch: "main"
-                sh "sudo apt install wget gnupg"
+                sh "docker compose down"
+                sh "sudo apt-get install wget gnupg"
                 sh "wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | gpg --dearmor | sudo tee /usr/share/keyrings/trivy.gpg > /dev/null"
                 sh "echo 'deb [signed-by=/usr/share/keyrings/trivy.gpg] https://aquasecurity.github.io/trivy-repo/deb generic main' | sudo tee -a /etc/apt/sources.list.d/trivy.list"
-                sh "sudo apt update"
-                sh "sudo apt install trivy"
+                sh "sudo apt-get update"
+                sh "sudo apt-get install trivy"
             }
         }
 
