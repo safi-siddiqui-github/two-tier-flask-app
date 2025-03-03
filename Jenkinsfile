@@ -3,6 +3,12 @@ pipeline {
 
     stages {
 
+        stage("down") {
+            steps {
+                sh "docker compose down"
+            }
+        }
+
         stage("code") {
             steps {
                 git url: "https://github.com/safi-siddiqui-github/two-tier-flask-app.git", branch: "main"
@@ -16,7 +22,6 @@ pipeline {
                 sh "docker pull mysql:latest"
             }
         }
-        
         
         stage("push") {
             steps {
