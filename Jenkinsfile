@@ -6,10 +6,10 @@ pipeline {
 
         stage('welcome') {
             steps {
-                welcome()
+                welcome('my', 'message')
             }
         }
-        
+
 
         // stage("code") {
         //     steps {
