@@ -44,16 +44,17 @@ pipeline {
         }
     }
 
-
     post {
         success {
-            emailext subject: "Build Success",
+            emailext from "safi-siddiqui.com"
+                subject: "Build Success",
                 body: "Build Success: TTFA",
                 to: "safisiddiqui.private@gmail.com"
         }
 
         failure {
-            emailext subject: "Build Failed",
+            emailext from "safi-siddiqui.com"
+                subject: "Build Failed",
                 body: "Build Failed: TTFA",
                 to: "safisiddiqui.private@gmail.com"
         }
