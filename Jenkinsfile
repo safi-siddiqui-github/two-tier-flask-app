@@ -45,5 +45,4 @@ pipeline {
                 to: "safisiddiqui.private@gmail.com"
         }
     }
-
 }
