@@ -1,45 +1,52 @@
+@Library("jenkins-shared-library") _
 pipeline {
     agent { label "dev" }
 
     stages {
 
-        stage("code") {
+        stage {
             steps {
-                git url: "https://github.com/safi-siddiqui-github/two-tier-flask-app.git", branch: "main"
+                welcome()
             }
         }
 
-        stage("scan") {
-            steps {
-                sh "trivy fs ."
-            }
-        }
-        
-        stage("build & push") {
-            steps {
-                withCredentials([usernamePassword(
-                    credentialsId: "docker_hub",
-                    passwordVariable: "password",
-                    usernameVariable: "username",
-                )]){
-                    sh "docker login -u ${env.username} -p ${env.password}"
-                    sh "docker build -t ${env.username}/ttfa_img:latest ."
-                    sh "docker push ${env.username}/ttfa_img:latest"
-                }
-            }
-        }
-        
-        stage("deploy") {
-            steps {
-                sh "docker compose up -d --build app"
-            }
-        }
+        // stage("code") {
+        //     steps {
+        //         git url: "https://github.com/safi-siddiqui-github/two-tier-flask-app.git", branch: "main"
+        //     }
+        // }
 
-        stage("clean") {
-            steps {
-                sh "docker system prune -f"
-            }
-        }
+        // stage("scan") {
+        //     steps {
+        //         sh "trivy fs ."
+        //     }
+        // }
+        
+        // stage("build & push") {
+        //     steps {
+        //         withCredentials([usernamePassword(
+        //             credentialsId: "docker_hub",
+        //             passwordVariable: "password",
+        //             usernameVariable: "username",
+        //         )]){
+        //             sh "docker login -u ${env.username} -p ${env.password}"
+        //             sh "docker build -t ${env.username}/ttfa_img:latest ."
+        //             sh "docker push ${env.username}/ttfa_img:latest"
+        //         }
+        //     }
+        // }
+        
+        // stage("deploy") {
+        //     steps {
+        //         sh "docker compose up -d --build app"
+        //     }
+        // }
+
+        // stage("clean") {
+        //     steps {
+        //         sh "docker system prune -f"
+        //     }
+        // }
 
         // stage("down") {
         //     steps {
