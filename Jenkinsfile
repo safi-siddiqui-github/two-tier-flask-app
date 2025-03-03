@@ -48,7 +48,7 @@ pipeline {
                 to: "safisiddiqui.private@gmail.com"
             )
         }
-
+        
         failure {
             emailtext(
                 subject: "Build Failed",
