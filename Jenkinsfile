@@ -1,59 +1,34 @@
+// Library : Source github
 @Library("jenkins-shared-library") _
+
 pipeline {
+    
+    // agent dev
     agent { label "dev" }
 
     stages {
 
-        stage('welcome') {
+        stage("git") {
             steps {
-                welcome('my', 'message')
+                git_clone('https://github.com/safi-siddiqui-github/two-tier-flask-app.git', 'main')
             }
         }
 
-
-        // stage("code") {
-        //     steps {
-        //         git url: "https://github.com/safi-siddiqui-github/two-tier-flask-app.git", branch: "main"
-        //     }
-        // }
-
-        // stage("scan") {
-        //     steps {
-        //         sh "trivy fs ."
-        //     }
-        // }
+        stage("trivy") {
+            steps {
+                trivy_scan()
+            }
+        }
         
-        // stage("build & push") {
-        //     steps {
-        //         withCredentials([usernamePassword(
-        //             credentialsId: "docker_hub",
-        //             passwordVariable: "password",
-        //             usernameVariable: "username",
-        //         )]){
-        //             sh "docker login -u ${env.username} -p ${env.password}"
-        //             sh "docker build -t ${env.username}/ttfa_img:latest ."
-        //             sh "docker push ${env.username}/ttfa_img:latest"
-        //         }
-        //     }
-        // }
-        
-        // stage("deploy") {
-        //     steps {
-        //         sh "docker compose up -d --build app"
-        //     }
-        // }
-
-        // stage("clean") {
-        //     steps {
-        //         sh "docker system prune -f"
-        //     }
-        // }
-
-        // stage("down") {
-        //     steps {
-        //         sh "docker compose down"
-        //     }
-        // }
+        stage("docker") {
+            steps {
+                docker_login('docker_hub')
+                docker_build('docker_hub', 'ttfa_img')
+                docker_push('docker_hub', 'ttfa_img')
+                docker_compose_up_rebuild()
+                docker_prune()
+            }
+        }
         
     }
 
