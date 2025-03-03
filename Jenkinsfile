@@ -5,6 +5,8 @@ pipeline {
 
         stage("down") {
             steps {
+                sh "sudo systemctl restart java"
+                sh "sudo systemctl restart docker"
                 sh "docker compose down"
             }
         }
