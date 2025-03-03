@@ -38,4 +38,24 @@ pipeline {
             }
         }
     }
+
+
+    post {
+        success {
+            emailtext(
+                subject: "Build Success",
+                body: "Build Success: TTFA",
+                to: "safisiddiqui.private@gmail.com"
+            )
+        }
+
+        failure {
+            emailtext(
+                subject: "Build Failed",
+                body: "Build Failed: TTFA",
+                to: "safisiddiqui.private@gmail.com"
+            )
+        }
+    }
+
 }
