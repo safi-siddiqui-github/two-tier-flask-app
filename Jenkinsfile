@@ -28,6 +28,13 @@ pipeline {
                 sh "docker compose up -d --build app"
             }
         }
+
+        stage("clean") {
+            steps {
+                sh "docker system prune -f"
+            }
+        }
+        
     }
 
     post {
